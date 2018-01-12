@@ -1,0 +1,19 @@
+extends layout
+
+block content
+    h1=article.title
+    form(method='POST', action='/articles/' + article.id + '/edit')
+        input(type='hidden', value=article.id)
+        .form-group
+            lable Title:
+            input.form-control(name='title', type='text', value=article.title)
+        .form-group
+            lable Author(s):
+            input.form-control(name='author', type='text', value=article.author)
+        .form-group
+            lable Body:
+            textarea.form-control(name='body')=article.body 
+        p
+            input.btn.btn-primary(type='submit', value='Update Article')
+            |  
+            a.btn.btn-link(href='/articles/' + article.id) Go Back

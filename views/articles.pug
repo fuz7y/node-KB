@@ -1,0 +1,14 @@
+extends layout
+
+block content
+    h1=article.title
+    .row
+        .col-md-12
+            p='By ' + article.author
+            p=article.body
+            p 
+                a.btn.btn-primary(href='/articles/' + article.id + '/edit') Edit Article 
+                |  
+                a.btn.btn-danger(href='/articles/' + article.id + '/remove') Remove Article 
+                |  
+                a.btn.btn-link(href='/') Go Back

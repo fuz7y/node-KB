@@ -1,0 +1,14 @@
+extends layout
+
+block content
+    h1=article.title
+    .row
+        .col-md-12
+            p='By ' + article.author
+            p Are you sure you want to remove this article?
+            form.form-horizontal(method='POST', action='/articles/' + article.id + '/remove')
+                input(type='hidden', value=article.id)
+                p
+                    input.btn.btn-danger(type='submit', value='Remove Article')
+                    |  
+                    a.btn.btn-link(href='/articles/' + article.id) Go Back

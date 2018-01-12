@@ -1,0 +1,10 @@
+extends layout
+
+block content
+    h1 #{title}
+    each article, i in articles
+        .row
+            .col-md-12
+                h3
+                    a(href='/articles/' + article.id)=article.title 
+                p= 'By ' + article.author
