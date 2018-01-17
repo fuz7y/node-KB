@@ -35,8 +35,8 @@ var Article = require('./models/article');
 
 // routes
 app.get('/', function (req, res) {
-    Article.find({}, function (err, articles){
-        if(err){
+    Article.find({}, function (err, articles) {
+        if (err) {
             console.error(err);
         } else {
             res.render('index',
@@ -63,10 +63,9 @@ app.post('/articles/add', function (req, res) {
     article.author = req.body.author;
     article.body = req.body.body;
 
-    article.save(function (err){
-        if(err){
+    article.save(function (err) {
+        if (err) {
             console.error(err);
-            return;
         } else {
             res.redirect('/');
         }
@@ -74,8 +73,8 @@ app.post('/articles/add', function (req, res) {
 });
 
 app.get('/articles/:id', function (req, res) {
-    Article.findById(req.params.id, function (err, article){
-        if(err){
+    Article.findById(req.params.id, function (err, article) {
+        if (err) {
             console.error(err);
         } else {
             res.render('articles',
@@ -88,8 +87,8 @@ app.get('/articles/:id', function (req, res) {
 });
 
 app.get('/articles/:id/edit', function (req, res) {
-    Article.findById(req.params.id, function (err, article){
-        if(err){
+    Article.findById(req.params.id, function (err, article) {
+        if (err) {
             console.error(err);
         } else {
             res.render('articles_edit',
@@ -101,9 +100,34 @@ app.get('/articles/:id/edit', function (req, res) {
     })
 });
 
+app.post('/articles/:id/edit', function (req, res) {
+    if (req.params.id != req.body.id) {
+        console.error('Id missmatch');
+    } else {
+        Article.findById(req.params.id, function (err, article) {
+            if (err) {
+                console.error(err);
+            } else {
+                article.title = req.body.title || article.title;
+                article.author = req.body.author || article.author;
+                article.body = req.body.body || article.body;
+
+                article.save(function (err) {
+                    if (err) {
+                        console.error(err);
+                    } else {
+                        console.log(article._id + ' was updated.');
+                        res.redirect('/articles/' + article.id);
+                    }
+                });
+            }
+        })
+    }
+});
+
 app.get('/articles/:id/remove', function (req, res) {
-    Article.findById(req.params.id, function (err, article){
-        if(err){
+    Article.findById(req.params.id, function (err, article) {
+        if (err) {
             console.error(err);
         } else {
             res.render('articles_remove',
@@ -115,8 +139,22 @@ app.get('/articles/:id/remove', function (req, res) {
     })
 });
 
+app.post('/articles/:id/remove', function (req, res) {
+    if (req.params.id != req.body.id) {
+        console.error('Id missmatch');
+    } else {
+        Article.findByIdAndRemove(req.params.id, function (err, article) {
+            if (err) {
+                console.error(err);
+            } else {
+                console.log(article._id + ' was removed.');
+                res.redirect('/');
+            }
+        })
+    }
+});
+
 // start server
 app.listen(3000, function () {
     console.log('Server started on port 3000...');
 });
-
