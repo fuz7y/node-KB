@@ -67,6 +67,7 @@ app.post('/articles/add', function (req, res) {
         if (err) {
             console.error(err);
         } else {
+            console.log('An article was created.');
             res.redirect('/');
         }
     });
@@ -116,7 +117,7 @@ app.post('/articles/:id/edit', function (req, res) {
                     if (err) {
                         console.error(err);
                     } else {
-                        console.log(article._id + ' was updated.');
+                        console.log(article.id + ' was updated.');
                         res.redirect('/articles/' + article.id);
                     }
                 });
@@ -147,7 +148,7 @@ app.post('/articles/:id/remove', function (req, res) {
             if (err) {
                 console.error(err);
             } else {
-                console.log(article._id + ' was removed.');
+                console.log(article.id + ' was removed.');
                 res.redirect('/');
             }
         })
