@@ -3,8 +3,6 @@ var bodyParser = require('body-parser')
 var path = require('path');
 var mongoose = require('mongoose'); 
 
-
-
 // connect to db
 mongoose.connect('mongodb://localhost/test');
 
@@ -51,7 +49,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/test', function (req, res) {
-    res.render('test', { title: 'Test' })
+    res.render('test', { title: 'Hello World' })
 });
 
 app.get('/articles/add', function (req, res) {

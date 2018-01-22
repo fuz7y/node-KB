@@ -16,19 +16,22 @@ html(lang='en')
                         span.icon-bar
                         span.icon-bar
                         span.icon-bar
-                    a.navbar-brand(href='/') node KB
+                    a.navbar-brand(href='/') node/express Knowledge Bucket App
                 .collapse.navbar-collapse
                     ul.nav.navbar-nav.navbar-right
                         li
                             a.nav-link(href='/')
-                                | Home 
+                                span.glyphicon.glyphicon-home
+                                |  Home 
                                 span.sr-only (current)
                         li
                             a.nav-link(href='/articles/add') 
-                                | New Article
+                                span.glyphicon.glyphicon-plus
+                                |  New Article
                         li
                             a.nav-link(href='/test') 
-                                | Hello World
+                                span.glyphicon.glyphicon-glass
+                                |  Hello World
         .container
             block content
             
