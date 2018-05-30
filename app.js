@@ -41,7 +41,7 @@ app.get('/', function (req, res) {
         } else {
             res.render('index',
                 {
-                    title: 'Articles',
+                    title: 'Home',
                     articles: articles
                 });
         }
@@ -49,7 +49,21 @@ app.get('/', function (req, res) {
 });
 
 app.get('/test', function (req, res) {
-    res.render('test', { title: 'Hello World' })
+    res.render('test', { title: 'Test Page' })
+});
+
+app.get('/articles', function (req, res) {
+    Article.find({}, function (err, articles) {
+        if (err) {
+            console.error(err);
+        } else {
+            res.render('articles',
+                {
+                    title: 'Articles',
+                    articles: articles
+                });
+        }
+    })
 });
 
 app.get('/articles/add', function (req, res) {
@@ -78,7 +92,7 @@ app.get('/articles/:id', function (req, res) {
         if (err) {
             console.error(err);
         } else {
-            res.render('articles',
+            res.render('articles_details',
                 {
                     title: 'Articles',
                     article: article

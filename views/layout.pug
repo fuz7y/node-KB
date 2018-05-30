@@ -25,13 +25,17 @@ html(lang='en')
                                 |  Home 
                                 span.sr-only (current)
                         li
+                            a.nav-link(href='/articles') 
+                                span.glyphicon.glyphicon-list
+                                |  List Articles
+                        li
                             a.nav-link(href='/articles/add') 
                                 span.glyphicon.glyphicon-plus
-                                |  New Article
+                                |  Create a New Article
                         li
                             a.nav-link(href='/test') 
                                 span.glyphicon.glyphicon-glass
-                                |  Hello World
+                                |  Test Page
         .container
             block content
             

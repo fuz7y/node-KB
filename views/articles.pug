@@ -1,16 +1,14 @@
 extends layout
 
 block content
-    h2=article.title
+    h2 #{title}
     .row
         .col-md-12
-            .panel.panel-default
-                .panel-body
-                    p= 'By ' + article.author
-                    p!= article.body
-                .panel-footer
-                    a.btn.btn-primary(href='/articles/' + article.id + '/edit') Edit Article 
-                    |  
-                    a.btn.btn-danger(href='/articles/' + article.id + '/remove') Remove Article 
-                    |  
-                    a.btn.btn-link(href='/') Go Back
+            .list-group
+                each article, i in articles
+                    a.list-group-item(href='/articles/' + article.id)
+                        h4.list-group-item-heading=article.title
+                        p.list-group-item-text= 'By ' + article.author
+                if articles.length == 0
+                    a.list-group-item(href='/articles/add')
+                        | Nothing to see here, go create an article
