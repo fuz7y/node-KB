@@ -13,7 +13,7 @@ db.on('error', function (err) {
 });
 
 db.once('open', function () {
-    console.log('Connected to MongoDB...');
+    console.log('Connected to MongoDB');
 });
 
 // init app
@@ -81,7 +81,7 @@ app.post('/articles/add', function (req, res) {
         if (err) {
             console.error(err);
         } else {
-            console.log('An article was created.');
+            console.log('an article was created.');
             res.redirect('/');
         }
     });
@@ -131,7 +131,7 @@ app.post('/articles/:id/edit', function (req, res) {
                     if (err) {
                         console.error(err);
                     } else {
-                        console.log(article.id + ' was updated.');
+                        console.log('article ' + article.id + ' was updated.');
                         res.redirect('/articles/' + article.id);
                     }
                 });
@@ -162,7 +162,7 @@ app.post('/articles/:id/remove', function (req, res) {
             if (err) {
                 console.error(err);
             } else {
-                console.log(article.id + ' was removed.');
+                console.log('article ' + article.id + ' was removed.');
                 res.redirect('/');
             }
         })
@@ -171,5 +171,5 @@ app.post('/articles/:id/remove', function (req, res) {
 
 // start server
 app.listen(3000, function () {
-    console.log('Server started on port 3000...');
+    console.log('Server started on port 3000');
 });
