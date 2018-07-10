@@ -31,7 +31,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'static')));
 
 //get model
-var Article = require('./models/article');
+const Article = require('./models/article');
 
 // routes
 app.get('/', (req, res) => {
