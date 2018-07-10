@@ -1,12 +1,13 @@
-var express = require('express');
-var bodyParser = require('body-parser')
-var path = require('path');
-var mongoose = require('mongoose'); 
+const express = require('express');
+const bodyParser = require('body-parser')
+const path = require('path');
+const mongoose = require('mongoose');
+const app = express();
 
 // connect to db
 mongoose.connect('mongodb://localhost/test');
 
-var db = mongoose.connection;
+const db = mongoose.connection;
 
 db.on('error', function (err) {
     console.error(err);
@@ -16,8 +17,7 @@ db.once('open', function () {
     console.log('Connected to MongoDB');
 });
 
-// init app
-var app = express();
+// Setup middleware
 
 // load view engine
 app.set('views', path.join(__dirname, 'views'));
@@ -34,8 +34,8 @@ app.use(express.static(path.join(__dirname, 'static')));
 var Article = require('./models/article');
 
 // routes
-app.get('/', function (req, res) {
-    Article.find({}, function (err, articles) {
+app.get('/', (req, res) => {
+    Article.find({}, (err, articles) => {
         if (err) {
             console.error(err);
         } else {
@@ -48,12 +48,12 @@ app.get('/', function (req, res) {
     })
 });
 
-app.get('/test', function (req, res) {
+app.get('/test', (req, res) => {
     res.render('test', { title: 'Test Page' })
 });
 
-app.get('/articles', function (req, res) {
-    Article.find({}, function (err, articles) {
+app.get('/articles', (req, res) => {
+    Article.find({}, (err, articles) => {
         if (err) {
             console.error(err);
         } else {
@@ -66,18 +66,18 @@ app.get('/articles', function (req, res) {
     })
 });
 
-app.get('/articles/add', function (req, res) {
+app.get('/articles/add', (req, res) => {
     res.render('articles_add', { title: 'New Article' });
 });
 
-app.post('/articles/add', function (req, res) {
+app.post('/articles/add', (req, res) => {
     var article = new Article();
 
     article.title = req.body.title;
     article.author = req.body.author;
     article.body = req.body.body;
 
-    article.save(function (err) {
+    article.save((err) => {
         if (err) {
             console.error(err);
         } else {
@@ -87,8 +87,8 @@ app.post('/articles/add', function (req, res) {
     });
 });
 
-app.get('/articles/:id', function (req, res) {
-    Article.findById(req.params.id, function (err, article) {
+app.get('/articles/:id', (req, res) => {
+    Article.findById(req.params.id, (err, article) => {
         if (err) {
             console.error(err);
         } else {
@@ -101,8 +101,8 @@ app.get('/articles/:id', function (req, res) {
     })
 });
 
-app.get('/articles/:id/edit', function (req, res) {
-    Article.findById(req.params.id, function (err, article) {
+app.get('/articles/:id/edit', (req, res) => {
+    Article.findById(req.params.id, (err, article) => {
         if (err) {
             console.error(err);
         } else {
@@ -115,11 +115,11 @@ app.get('/articles/:id/edit', function (req, res) {
     })
 });
 
-app.post('/articles/:id/edit', function (req, res) {
+app.post('/articles/:id/edit', (req, res) => {
     if (req.params.id != req.body.id) {
         console.error('Id missmatch');
     } else {
-        Article.findById(req.params.id, function (err, article) {
+        Article.findById(req.params.id, (err, article) => {
             if (err) {
                 console.error(err);
             } else {
@@ -127,7 +127,7 @@ app.post('/articles/:id/edit', function (req, res) {
                 article.author = req.body.author || article.author;
                 article.body = req.body.body || article.body;
 
-                article.save(function (err) {
+                article.save((err) => {
                     if (err) {
                         console.error(err);
                     } else {
@@ -140,8 +140,8 @@ app.post('/articles/:id/edit', function (req, res) {
     }
 });
 
-app.get('/articles/:id/remove', function (req, res) {
-    Article.findById(req.params.id, function (err, article) {
+app.get('/articles/:id/remove', (req, res) => {
+    Article.findById(req.params.id, (err, article) => {
         if (err) {
             console.error(err);
         } else {
@@ -154,11 +154,11 @@ app.get('/articles/:id/remove', function (req, res) {
     })
 });
 
-app.post('/articles/:id/remove', function (req, res) {
+app.post('/articles/:id/remove', (req, res) => {
     if (req.params.id != req.body.id) {
         console.error('Id missmatch');
     } else {
-        Article.findByIdAndRemove(req.params.id, function (err, article) {
+        Article.findByIdAndRemove(req.params.id, (err, article) => {
             if (err) {
                 console.error(err);
             } else {
@@ -170,6 +170,8 @@ app.post('/articles/:id/remove', function (req, res) {
 });
 
 // start server
-app.listen(3000, function () {
-    console.log('Server started on port 3000');
+const port = 5001;
+
+app.listen(port, function () {
+    console.log(`Server started on port ${port}`);
 });
