@@ -5,7 +5,9 @@ const mongoose = require('mongoose');
 const app = express();
 
 // connect to db
-mongoose.connect('mongodb://localhost/test');
+const mongoURI = 'mongodb://localhost:27018/local';
+
+mongoose.connect(mongoURI);
 
 const db = mongoose.connection;
 
